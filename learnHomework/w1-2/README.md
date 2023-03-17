@@ -11,6 +11,12 @@ REPORT_GAS=true npx hardhat test
 npx hardhat node
 npx hardhat run scripts/deploy.js
 ```
+## 作业题目
+• 使⽤ Hardhat 部署修改后的 Counter 
+
+• 使⽤ Hardhat 测试 Counter 
+
+• 写⼀个脚本调⽤ count()
 
 ### 合约编译
 ``npx hardhat compile``

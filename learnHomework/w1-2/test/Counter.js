@@ -6,8 +6,8 @@ describe("Counter",function(){
     async function init(){
         const [owner, otherAccount]  =  await ethers.getSigners(); 
         
-        console.log("owner:"+ owner)
-        console.log("otherAccount:"+ otherAccount)
+        console.log("owner:"+ owner.address)
+        console.log("otherAccount:"+ otherAccount.address)
         //ethers.js中的ContractFactory是用于部署新智能合约的抽象，因此此处的Counter是用来实例合约的工厂。
         const Counter = await ethers.getContractFactory("Counter");
         //在ContractFactory上调用deploy()将启动部署，并返回解析为Contract的Promise。 该对象包含了智能合约所有函数的方法。

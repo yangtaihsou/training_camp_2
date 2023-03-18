@@ -10,7 +10,6 @@ contract Counter {
 
     function count() public{
         counter = counter+1;
-        
         console.log("counter is %s ", counter);
     }
 

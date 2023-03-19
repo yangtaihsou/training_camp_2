@@ -113,3 +113,35 @@ bank里金额是`0.0 ETH`
 
 > metamask给bank合约`0x5FbDB2315678afecb367f032d93F642f64180aa3`转入金额，使用
 `npx hardhat balance...`验证
+
+node控制台打印交易
+>>![avatar](img/给bank合约转账.png)
+
+### 单元测试
+test/Bank.js
+
+需要注意的
+
+1. 合约如果想接收到以太坊金额，需要发送方法，构造tx，即{value:value,from:from}，这里主要是value。见测试`deposit 100 to bank and verify`
+
+    ``.depositEth(100, { value: 100 })``
+
+或者直接调用receive，见测试`getAllBalanceEth002`
+
+````
+const tx = { value: amount, to: bank.address };
+        const receipt = await otherAccount.sendTransaction(tx);
+````
+
+2. 单元测试里，无法直接通过address.balance查询余额
+
+在合约里调用ddress.balance查询
+````
+    function getbankOwnerBalanceEth() public view returns (uint) {
+        return bankOwner.balance;
+    }
+````
+或者通过ethers命令查询，参考task/balance.js
+````
+ const balance = await ethers.provider.getBalance(address);
+````

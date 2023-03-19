@@ -133,7 +133,7 @@ const tx = { value: amount, to: bank.address };
         const receipt = await otherAccount.sendTransaction(tx);
 ````
 
-2. 单元测试里，无法直接通过address.balance查询余额
+2. 单元测试里，无法直接通过address.balance查询余额（不在区块里）
 
 在合约里调用ddress.balance查询
 ````
@@ -141,7 +141,10 @@ const tx = { value: amount, to: bank.address };
         return bankOwner.balance;
     }
 ````
-或者通过ethers命令查询，参考task/balance.js
+或者通过ethers命令查询，参考task/balance.js。provider操作rpc
 ````
  const balance = await ethers.provider.getBalance(address);
 ````
+
+###部署合约到goerli网络
+https://goerli.etherscan.io/address/0xc038E333Db4Cc5572ffB9E80AAC283696E8a05BC#code

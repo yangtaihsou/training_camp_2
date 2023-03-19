@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.9;
+
 //import "hardhat/console.sol";
 
 contract Bank {
@@ -14,7 +15,7 @@ contract Bank {
      * 将接收到的以太坊，存储到对应的储户上
      */
     receive() external payable {
-       // console.log("receive, msg.value:", msg.value);
+        // console.log("receive, msg.value:", msg.value);
         depositMapping[msg.sender] += msg.value;
     }
 
@@ -32,7 +33,7 @@ contract Bank {
      * 读取储户的存款
      */
     function getBalanceOfEth() public view returns (uint) {
-/*         console.log(
+        /*         console.log(
             "account:%s ,balance is %s ",
             msg.sender,
             depositMapping[msg.sender]
@@ -44,7 +45,7 @@ contract Bank {
      * 储户提取以太坊存款。通过transfer方法
      */
     function withdrawEth() public {
-/*         console.log(
+        /*         console.log(
             "withdrawEth, msg.sender:%s,balance is:%s.  bank balance is %s ",
             msg.sender,
             depositMapping[msg.sender], 
@@ -60,7 +61,7 @@ contract Bank {
      * @param _amount 取款金额
      */
     function withdrawEth001(uint _amount) public {
- /*        console.log(
+        /*        console.log(
             "withdrawEth, msg.sender:%s,balance is:%s.  bank balance is %s ",
             msg.sender,
             depositMapping[msg.sender], 
@@ -76,7 +77,7 @@ contract Bank {
      * @param _amount 取款金额
      */
     function withdrawEthCall(uint _amount) public {
-/*         console.log(
+        /*         console.log(
             "withdrawEthCall, msg.sender:%s,balance is:%s.  bank balance is %s ",
             msg.sender,
             depositMapping[msg.sender], 
@@ -85,7 +86,9 @@ contract Bank {
         require(_amount <= depositMapping[msg.sender]);
         depositMapping[msg.sender] -= _amount;
         //(bool result, ) = msg.sender.call{value: _amount}(new bytes(0));
-        (bool result, ) = payable(msg.sender).call{value:_amount}(new bytes(0));
+        (bool result, ) = payable(msg.sender).call{value: _amount}(
+            new bytes(0)
+        );
         require(result, "Eth transfer is failed");
     }
 
@@ -98,7 +101,7 @@ contract Bank {
      * 将合约的以太坊余额转移到合约部署者
      */
     function bankOwnerWithdraw() public onlyOwner {
-/*         console.log(
+        /*         console.log(
             "bankOwnerWithdraw,bankOwner account:%s, bank account:%s ,bank balance is %s ",
             bankOwner,
             address(this),
@@ -112,7 +115,7 @@ contract Bank {
      * 读取合约里的eth余额
      */
     function getAllBalanceEth() public view returns (uint) {
-/*         console.log(
+        /*         console.log(
             "getAllBalanceEth, bank account:%s ,balance is %s ",
             address(this),
             address(this).balance
@@ -124,7 +127,7 @@ contract Bank {
      * 读取合约部署者的以太坊余额
      */
     function getbankOwnerBalanceEth() public view returns (uint) {
-/*         console.log(
+        /*         console.log(
             "getbankOwnerBalanceEth, bankOwner account:%s ,balance is %s ",
             bankOwner,
             bankOwner.balance

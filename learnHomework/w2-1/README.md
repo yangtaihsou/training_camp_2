@@ -155,5 +155,13 @@ const tx = { value: amount, to: bank.address };
  const balance = await ethers.provider.getBalance(address);
 ````
 
-###部署合约到goerli网络
+### 部署合约到goerli网络
 https://goerli.etherscan.io/address/0xc038E333Db4Cc5572ffB9E80AAC283696E8a05BC#code
+
+仍然有后门，合约的ether全部转移后，储户可以查询到账户金额，但无法提现了。
+
+### 需要留意的问题
+hardhat-toolbox 需要在工程目录下重新安装
+````
+npm install --save-dev @nomicfoundation/hardhat-toolbox
+````

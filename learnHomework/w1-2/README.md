@@ -26,6 +26,7 @@ npx hardhat run scripts/deploy.js
 使用ethers.js与前面的合约进行交互，并使用 Mocha 作为测试运行器。
 
 测试代码文件是test\Counter.js
+
 ``npx hardhat test``
 >>![avatar](img/hardhat-test.png)
 ### 合约部署到内置网络上
@@ -62,7 +63,7 @@ etherscan: {
     apiKey: ""
   }
 ````
- #### 执行命令
+ #### 执行命令verify上传合约源码
 ``npx hardhat verify 0x4288f6c6E5253268B341273D150Ab58d51b88AE5  --network goerli``
 地址是上面部署完毕的合约
 

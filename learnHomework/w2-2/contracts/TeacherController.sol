@@ -23,7 +23,10 @@ contract TeacherController {
         ScoreStore scoreStore = new ScoreStore();
         scoreStoreAddress = address(scoreStore);
         console.log("ScoreStore contract address:%s", scoreStoreAddress);
-        console.log("%s deployed ScoreStore contract",  IScoreStore(scoreStoreAddress).getDeployedAddress());
+        console.log(
+            "%s deployed ScoreStore contract",
+            IScoreStore(scoreStoreAddress).getDeployedAddress()
+        );
     }
 
     modifier onlyOwner() {
@@ -37,19 +40,41 @@ contract TeacherController {
         _;
     }
 
-
     function addTeacher(address teacher) public onlyOwner {
         teachers[teacher] = teacher;
     }
-
-
     function setStudentScore(
         address student,
-         string memory course,
+        string memory course,
         uint8 score
     ) public onlyTeacher {
         require(score < 100, "score should be less than 100");
-        console.log("ScoreStore contract address:%s", scoreStoreAddress);
-        IScoreStore(scoreStoreAddress).setScore(student,course,score);
+        IScoreStore(scoreStoreAddress).setScore(student, course, score);
     }
+
+    
+    
+    /**
+     * 查询具体学生的课程分数
+     * @param student 学生地址
+     * @param course 课程名字
+     */
+    function getStudentScore(
+        address student,
+        string memory course
+    ) public view returns (uint8){
+      return  IScoreStore(scoreStoreAddress).getScoreByStudent(student, course);
+    }
+
+
+
+    function getTeacher(address teacher) public view returns (address) {
+        return teachers[teacher];
+    }
+
+
+    function getScoreStoreAddress() public view returns (address) {
+        return scoreStoreAddress;
+    }
+
 }

@@ -42,9 +42,9 @@ describe("Bank", function () {
         const { bank, owner, otherAccount } = await loadFixture(init);
         const amount = ethers.utils.parseEther("1");
         const tx = { value: amount, to: bank.address };
+        //直接给地址转账
         const receipt = await otherAccount.sendTransaction(tx);
         await receipt.wait();//等待链上确认交易
-
         let bankcontract = await ethers.getContractAt("Bank",
             "0x5FbDB2315678afecb367f032d93F642f64180aa3");
 

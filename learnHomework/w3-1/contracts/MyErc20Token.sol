@@ -16,6 +16,8 @@ contract MyErc20Token is Erc20Token {
         _burn(account, value);
     }
 
+
+    //mint应该让项目方发起
     function mint(address account, uint256 value) public onlyOwner {
          require(maxTotalSupply + value <= _totalSupply,"minted amount is more than totalSupply");
          maxTotalSupply = maxTotalSupply + value;
@@ -32,11 +34,15 @@ contract MyErc20Token is Erc20Token {
         address from,
         address to,
         uint256 amount
-    ) internal override {}
+    ) internal override {
+       // console.log("_beforeTokenTransfer-------------%s,%s,%s",from,to,amount);
+    }
 
     function _afterTokenTransfer(
         address from,
         address to,
         uint256 amount
-    ) internal override {}
+    ) internal override {
+      //  console.log("_afterTokenTransfer-------------%s,%s,%s",from,to,amount);
+      }
 }

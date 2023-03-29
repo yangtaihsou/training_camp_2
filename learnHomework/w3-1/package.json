@@ -11,6 +11,7 @@
   "devDependencies": {
     "@ethersproject/bignumber": "^5.7.0",
     "@nomicfoundation/hardhat-toolbox": "^2.0.2",
+    "@nomiclabs/hardhat-etherscan": "^3.1.7",
     "@openzeppelin/contracts": "^4.8.2",
     "hardhat": "^2.13.0"
   },

@@ -31,8 +31,11 @@ describe("ERC20Vault", function () {
         //给owner mint一些erc20 token的额度
         await MyErc20Token.connect(owner).mint(
             owner.address, BigNumber.from("100000000000000000000"));
+        //owner授权ERC20Vault地址额度
+        await MyErc20Token.connect(owner).approve(
+            ERC20Vault.address, BigNumber.from("70000000000000000000"));
 
-        //将owner的token存入vault合约
+        //将owner的token存入vault合约.需要小于授权额度
         await ERC20Vault.connect(owner).deposit(BigNumber.from("30000000000000000000"));
 
         //查询owner的剩余token
@@ -49,16 +52,22 @@ describe("ERC20Vault", function () {
         //给owner mint一些erc20 token的额度
         await MyErc20Token.connect(owner).mint(
             owner.address, BigNumber.from("100000000000000000000"));
+            
+        //owner授权ERC20Vault地址额度
+        await MyErc20Token.connect(owner).approve(
+            ERC20Vault.address, BigNumber.from("70000000000000000000"));
 
         //将owner的token存入vault合约
         await ERC20Vault.connect(owner).deposit(BigNumber.from("30000000000000000000"));
+
         //owner从vault合约取出token
         await ERC20Vault.connect(owner).withdraw(BigNumber.from("10000000000000000000"));
 
-        //查询owner的剩余token
-        expect(await MyErc20Token.connect(owner).balanceOf(
-            owner.address)).equal("80000000000000000000");
         //查询owner在vault的存款
         expect(await ERC20Vault.connect(owner).balanceOf()).equal("20000000000000000000");
+
+        //查询owner的剩余token
+        expect(await MyErc20Token.connect(owner).balanceOf(
+            owner.address)).equal("70000000000000000000");
     })
 })

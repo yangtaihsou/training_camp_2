@@ -19,8 +19,10 @@ contract ERC20Vault {
 
     function withdraw(uint256 amount) public {
         address user = msg.sender;
-        IERC20(erc20Token).transferFrom(address(this), msg.sender, amount);
         balance[user] = balance[user] - amount;
+        //vault直接转，不需要授权额度。需要验证余额是否充足
+        IERC20(erc20Token).transfer(address(this), amount);
+        //需要返还授权额度
     }
 
     function balanceOf()  public view  returns(uint256){

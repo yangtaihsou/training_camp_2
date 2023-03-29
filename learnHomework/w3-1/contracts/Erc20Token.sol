@@ -74,7 +74,8 @@ contract Erc20Token {
         uint256 _value
     ) public returns (bool) {
         _transfer(_from, _to, _value);
-        // _approve(_from, _to, _allowBalance[_from][_to] - _value);
+        //如果approve额度不够，就会报错
+        _approve(_from, _to, _allowBalance[_from][_to] - _value);
         return true;
     }
 

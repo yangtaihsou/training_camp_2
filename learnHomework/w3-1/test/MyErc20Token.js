@@ -98,4 +98,22 @@ describe("MyErc20Token", function () {
     });
 
 
+    
+    it("transferFrom", async function () {
+        const { BigNumber } = require("@ethersproject/bignumber");
+        const { contract, owner, otherAccount } = await loadFixture(init);
+        await contract.connect(owner).mint(
+            owner.address, BigNumber.from("900000000000000000000000"));
+        await contract.connect(owner).mint(
+            otherAccount.address, BigNumber.from("300000000000000000000000"));
+        //从owner转2到otherAccount
+        await contract.connect(owner).transfer(
+            otherAccount.address, BigNumber.from("200000000000000000000000"));
+
+        expect(await contract.connect(owner).balanceOf(
+            owner.address)).equal("700000000000000000000000");
+        expect(await contract.connect(owner).balanceOf(
+            otherAccount.address)).equal("500000000000000000000000");
+    });
+
 })

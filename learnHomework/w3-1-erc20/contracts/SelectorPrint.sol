@@ -10,12 +10,12 @@ contract SelectorPrint {
         // Function code goes here
     }
 
-    function getSelector() external pure returns (bytes4) { 
+    function getSelector() external pure returns (bytes4) {
         //等同于bytes4(keccak256(。。。，内部使用方便，但在其他合约用，比较麻烦
         return SelectorPrint.myFunction.selector;
     }
-    
-    function getSelector2() external pure returns (bytes4) { 
+
+    function getSelector2() external pure returns (bytes4) {
         return bytes4(keccak256("myFunction(uint256,string)"));
     }
 }

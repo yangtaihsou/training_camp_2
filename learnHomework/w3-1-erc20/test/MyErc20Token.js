@@ -98,7 +98,7 @@ describe("MyErc20Token", function () {
     });
 
 
-    
+
     it("transferFrom", async function () {
         const { BigNumber } = require("@ethersproject/bignumber");
         const { contract, owner, otherAccount } = await loadFixture(init);

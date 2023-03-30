@@ -52,7 +52,7 @@ describe("ERC20Vault", function () {
         //给owner mint一些erc20 token的额度
         await MyErc20Token.connect(owner).mint(
             owner.address, BigNumber.from("100000000000000000000"));
-            
+
         //owner授权ERC20Vault地址额度
         await MyErc20Token.connect(owner).approve(
             ERC20Vault.address, BigNumber.from("70000000000000000000"));

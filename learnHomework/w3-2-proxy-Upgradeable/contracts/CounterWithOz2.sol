@@ -9,7 +9,11 @@ contract CounterWithOz2 is Initializable {
         counter += i;
     }
 
-    function get() public view returns(uint) {
+    function get() public view returns (uint) {
         return counter;
+    }
+
+    function increase() public {
+        counter += 1;
     }
 }

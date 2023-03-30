@@ -1,11 +1,11 @@
 pragma solidity ^0.8.0;
 
-
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 
 contract CounterWithOz is Initializable {
     uint private counter;
 
+    //必须使用init
     function initialize(uint256 _x) public initializer {
         counter = _x;
     }
@@ -14,7 +14,7 @@ contract CounterWithOz is Initializable {
         counter += 1;
     }
 
-    function get() public view returns(uint) {
+    function get() public view returns (uint) {
         return counter;
     }
 }

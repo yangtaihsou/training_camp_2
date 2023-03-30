@@ -1,6 +1,4 @@
 const { ethers, upgrades } = require("hardhat");
-
-
 const { getImplementationAddress } = require('@openzeppelin/upgrades-core');
 
 async function main() {
@@ -10,6 +8,7 @@ async function main() {
   await instance.deployed();
   console.log("instance address " + instance.address)
 
+  //以上会部署3个合约，可以规避函数碰撞
   // 部署逻辑合约 
   // 部署代理 TransparentUpgradeableProxy
   // 部署代理管理员  ProxyAdmin

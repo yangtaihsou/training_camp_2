@@ -68,9 +68,9 @@ describe("NFTMarket", function () {
 
         //otherAccount给NFTMarket账户授权剩余的erc20额度。2.7-2.1=06
         expect(await MyErc20Token.connect(otherAccount).allowance(otherAccount.address,
-            NFTMarket.address)).equal(ethers.utils.parseEther('0.6')); 
+            NFTMarket.address)).equal(ethers.utils.parseEther('0.6'));
 
-            //NFT已经转给了otherAccount账户
+        //NFT已经转给了otherAccount账户
         expect(await NFTContract.connect(owner).ownerOf(0)).equal(otherAccount.address);
     })
 })

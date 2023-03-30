@@ -39,7 +39,7 @@ https://testnets.opensea.io/zh-CN/account/created
 具体NFT链接
 
 https://testnets.opensea.io/zh-CN/assets/goerli/0x650896355724edf3c4ce1615a81435174543d4a6/0
-
+需要点击右侧三个点里面的`刷新元数据`，图片才能出来
 
 ## 注意问题
 >安装bignumber ` npm install --save-dev @ethersproject/bignumber`

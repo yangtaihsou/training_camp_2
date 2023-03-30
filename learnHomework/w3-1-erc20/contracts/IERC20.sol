@@ -9,6 +9,5 @@ interface IERC20 {
         uint256 _value
     ) external returns (bool);
 
-    function transfer(address _to, uint256 _value) 
-    external returns (bool);
+    function transfer(address _to, uint256 _value) external returns (bool);
 }

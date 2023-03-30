@@ -104,6 +104,8 @@ Any funds sent to them on Mainnet or any other live network WILL BE LOST.
 
 ## 部署bank到本地区块链
 
+需要在`hardhat.config.js`增加网络配置
+
 ``npx hardhat run scripts/deployBank.js --network dev``
 
 部署bank后得到合约地址（可能需要执行两次）

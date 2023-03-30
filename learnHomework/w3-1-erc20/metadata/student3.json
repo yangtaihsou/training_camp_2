@@ -1,0 +1,16 @@
+{
+    "title": "户外游玩俱乐部",
+    "description": "户外俱乐部，滑雪、划船。",
+    "image": "ipfs://QmVi8W77joBWi8qUviiP7ZbGX6eeCFjHUryZxUG4b5DTVE",
+    "attributes": [
+        {
+            "trait_type": "学号",
+            "value": "02002"
+        },
+        {
+            "trait_type": "昵称",
+            "value": "LUFFY"
+        }
+    ],
+    "version": "2"
+}

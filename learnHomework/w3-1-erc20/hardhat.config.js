@@ -12,7 +12,7 @@ module.exports = {
   networks: {
     goerli: {
       url: "https://eth-goerli.api.onfinality.io/public",
-      accounts: ['9e4d2a2304620cc73f950c39d4bb0898ad8629c1846cfd492435f69e1c7ddd63'],
+      accounts: [''],
       chainId: 5,
     },
     dev: {
@@ -21,6 +21,6 @@ module.exports = {
     }
   },
   etherscan: {
-    apiKey: "VPH2RRTCS5WS3V1FIEE818J7MDT4A1SZT5"
+    apiKey: ""
   }
 };

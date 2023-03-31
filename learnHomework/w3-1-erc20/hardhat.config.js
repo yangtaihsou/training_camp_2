@@ -5,6 +5,12 @@ module.exports = {
   solidity: "0.8.18",
 };
 
+let dotenv = require('dotenv')
+dotenv.config({ path: "./.env" })
+// 填入自己的私钥或助记词，
+const account = process.env.ACCOUNt;
+const ethercankey = process.env.ETHERSCAN_API_KEY;
+const mnemonic = process.env.Mnemonic; 
 
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
@@ -12,7 +18,7 @@ module.exports = {
   networks: {
     goerli: {
       url: "https://eth-goerli.api.onfinality.io/public",
-      accounts: [''],
+      accounts: [account],
       chainId: 5,
     },
     dev: {
@@ -21,6 +27,6 @@ module.exports = {
     }
   },
   etherscan: {
-    apiKey: ""
+    apiKey: ethercankey
   }
 };

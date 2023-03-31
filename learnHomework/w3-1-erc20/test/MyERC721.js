@@ -25,14 +25,14 @@ describe("MyERC721", function () {
             otherAccount.address, "ipfs://QmPWXj3xcm8VuVuf9CFYjnCpDp7dy2KHEJhQkxebCu8V7p");
 
         console.log("tokenId:" + tokenId.toString());
-       // expect(tokenId ).equal(0);
-       
-        
+        // expect(tokenId ).equal(0);
+
+
         expect(await contract.connect(owner).tokenURI(0)).equal("ipfs://QmPWXj3xcm8VuVuf9CFYjnCpDp7dy2KHEJhQkxebCu8V7p");
-        
-        expect(await contract.connect(owner).balanceOf( otherAccount.address)).equal(1);
+
+        expect(await contract.connect(owner).balanceOf(otherAccount.address)).equal(1);
         expect(await contract.connect(owner).ownerOf(0)).equal(otherAccount.address);
-        
+
     });
 
 })

@@ -16,11 +16,13 @@ contract MyErc20Token is Erc20Token {
         _burn(account, value);
     }
 
-
     //mint应该让项目方发起
     function mint(address account, uint256 value) public onlyOwner {
-         require(maxTotalSupply + value <= _totalSupply,"minted amount is more than totalSupply");
-         maxTotalSupply = maxTotalSupply + value;
+        require(
+            maxTotalSupply + value <= _totalSupply,
+            "minted amount is more than totalSupply"
+        );
+        maxTotalSupply = maxTotalSupply + value;
         _mint(account, value);
     }
 
@@ -29,13 +31,12 @@ contract MyErc20Token is Erc20Token {
         _;
     }
 
-    
     function _beforeTokenTransfer(
         address from,
         address to,
         uint256 amount
     ) internal override {
-       // console.log("_beforeTokenTransfer-------------%s,%s,%s",from,to,amount);
+        // console.log("_beforeTokenTransfer-------------%s,%s,%s",from,to,amount);
     }
 
     function _afterTokenTransfer(
@@ -43,6 +44,6 @@ contract MyErc20Token is Erc20Token {
         address to,
         uint256 amount
     ) internal override {
-      //  console.log("_afterTokenTransfer-------------%s,%s,%s",from,to,amount);
-      }
+        //  console.log("_afterTokenTransfer-------------%s,%s,%s",from,to,amount);
+    }
 }

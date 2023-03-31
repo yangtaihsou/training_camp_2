@@ -47,3 +47,16 @@ https://testnets.opensea.io/zh-CN/assets/goerli/0x650896355724edf3c4ce1615a81435
 ### 上传ERC20Vault合约代码
 需要添加初始化参数
 ` npx hardhat verify 0x7567c1E4980f3Dd6AbC0A94C7a6393d7A1e5E723  --network goerli "0x57B6d8025bb5790E1b3aA54546fE4F092F473360" `
+
+### 离线签名没有通过
+  离线签名测试，见`ERC2612.js`，两个签名方式，都没有通过permit方法测试，最终调用zp的以下验证
+  `````
+        bytes32 hash = EIP712._hashTypedDataV4(structHash);
+        `````
+            function _hashTypedDataV4(bytes32 structHash) internal view virtual returns (bytes32) {
+               return ECDSA.toTypedDataHash(_domainSeparatorV4(), structHash);
+            }
+        `````
+        address signer = ECDSA.recover(hash, v, r, s);
+        require(signer == owner, "ERC20Permit: invalid signature");
+  `````

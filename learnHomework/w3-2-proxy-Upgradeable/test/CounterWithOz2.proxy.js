@@ -1,4 +1,5 @@
 const { expect } = require('chai');
+const { ethers, upgrades } = require("hardhat");
 let CounterWithOz;
 let CounterWithOz2;
 let counterWithOz;
@@ -30,7 +31,9 @@ describe('CounterWithOz2 (proxy)', function () {
         expect(await counterWithOz2.get()).to.equal(52);
     });
 
+    // 另外可以用 counterWithOz.increase()证明没有代理increase方法
     it('increase', async function () {
+        
         await counterWithOz2.increase();
         expect(await counterWithOz2.get()).to.equal(43);
     });

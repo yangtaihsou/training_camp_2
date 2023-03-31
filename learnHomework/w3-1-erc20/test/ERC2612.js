@@ -4,7 +4,6 @@ const { expect } = require("chai");
 
 const { ethers2 = ethers } = require("ethers");
 
-let privateKey;// 用户私钥
 let owner;
 let otherAccount;
 let contract;
@@ -22,7 +21,6 @@ describe("ERC2612", function () {
         await sigUtilsContract.deployed();
 
 
-        privateKey = owner.privateKey;
         return { contract, owner, otherAccount };
     }
 
@@ -31,52 +29,102 @@ describe("ERC2612", function () {
     });
 
 
-    it("permit2", async function () {
 
-        // // 设置允许授权的金额
-        const amount = ethers.utils.parseEther("10");
-        const deadline = ethers.constants.MaxUint256;
-        const digest = await sigUtilsContract.getTypedDataHash(
-            {
-                owner: owner.address,
-                spender: otherAccount.address,
-                value: amount,
-                nonce: 0,
-                deadline: deadline
-            }
-        );
+    it("permit3", async function () {
+        const types = {
+            Permit: [
+                { name: "owner", type: "address" },
+                { name: "spender", type: "address" },
+                { name: "value", type: "uint256" },
+                { name: "nonce", type: "uint256" },
+                { name: "deadline", type: "uint256" }
+            ]
+        }
 
-        console.log("digest----------", digest);
-        const signature = await owner.signMessage(digest);
-        console.log("signature----------", signature);
-        const { v, r, s } = await getRSV(signature);
-        console.log("v:%s,r:%s,s:%s", v, r, s);
-        await contract.connect(otherAccount).permit(
-            owner.address, otherAccount.address, amount, deadline, v, r, s);
-    })
+        const domain = {
+            name: 'ERC2612',
+            version: '1',
+            chainId: 1,
+            verifyingContract: contract.address
+        }
 
-    it("permit1", async function () {
-        // 获取当前 Block Number 来用于 nonce
-        const latestBlockNumber = await ethers.provider.getBlockNumber()
-
-        // // 设置允许授权的金额
         const amount = ethers.utils.parseEther("10");
 
-        // // 调用 permit 函数以获得签名
         const deadline = ethers.constants.MaxUint256;
+        
+        console.log("deadline----------", deadline);
+        const ownerAddress = owner.address;
+        const spender =  otherAccount.address;
 
-        const message = { "test": "123456" }; // 要签名的消息
-        const signature = await signMessage(message);
-        const { v, r, s } = await getRSV(signature);
+        const nonce = ethers.BigNumber.from(await contract.nonces(ownerAddress));
+
+        const message = {
+            owner: ownerAddress,
+            spender: spender,
+            value: amount,
+            nonce: nonce,
+            deadline: deadline
+        }
+
+        const signature = await owner._signTypedData(domain, types, message);
+        console.log("digest----------", signature);
+
+        const { v, r, s } = ethers.utils.splitSignature(signature);
 
         console.log("v:%s,r:%s,s:%s", v, r, s);
         await contract.connect(otherAccount).permit(
-            owner.address, otherAccount.address, amount, deadline, v, r, s);
+            ownerAddress, spender, amount, deadline, v, r, s);
     })
 
+    /*
+        it("permit2", async function () {
+    
+            // // 设置允许授权的金额
+            const amount = ethers.utils.parseEther("10");
+            const deadline = ethers.constants.MaxUint256;
+            const digest = await sigUtilsContract.getTypedDataHash(
+                {
+                    owner: owner.address,
+                    spender: otherAccount.address,
+                    value: amount,
+                    nonce: 0,
+                    deadline: deadline
+                }
+            );
+    
+            console.log("digest----------", digest);
+            const signature = await owner.signMessage(digest);
+            console.log("signature----------", signature);
+            const { v, r, s } = await getRSV(signature);
+            console.log("v:%s,r:%s,s:%s", v, r, s);
+            await contract.connect(otherAccount).permit(
+                owner.address, otherAccount.address, amount, deadline, v, r, s);
+        })
+    
+        it("permit1", async function () {
+            // 获取当前 Block Number 来用于 nonce
+            const latestBlockNumber = await ethers.provider.getBlockNumber()
+    
+            // // 设置允许授权的金额
+            const amount = ethers.utils.parseEther("10");
+    
+            // // 调用 permit 函数以获得签名
+            const deadline = ethers.constants.MaxUint256;
+    
+            const message = { "test": "123456" }; // 要签名的消息
+            const signature = await signMessage(message);
+            const { v, r, s } = await getRSV(signature);
+    
+            console.log("v:%s,r:%s,s:%s", v, r, s);
+            await contract.connect(otherAccount).permit(
+                owner.address, otherAccount.address, amount, deadline, v, r, s);
+        })
+    */
 
 
     async function signMessage(message) {
+        const privateKey = owner.privateKey;
+        console.log("privateKey-------------:" + privateKey);
         //privateKey暂时无法获得
         //const signingKey = new ethers2.utils.SigningKey(privateKey);
         //signingKey.signDigest( digest ) 
